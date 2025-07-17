@@ -6,8 +6,8 @@ See [HDHomeRunEPG-to-XmlTv](https://github.com/IncubusVictim/HDHomeRunEPG-to-Xml
 
 | Tag | Description |
 |---|---|
-| latest | Stable zap2xml releases |
-| nightly | HEAD zap2xml release |
+| latest | Stable HDHomeRunEPG releases |
+| nightly | HEAD HDHomeRunEPG release |
 
 ### Compose
 
