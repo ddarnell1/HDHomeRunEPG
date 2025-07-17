@@ -1,4 +1,4 @@
-# zap2xml
+# HDHomeRunEPG
 
 See [HDHomeRunEPG-to-XmlTv](https://github.com/IncubusVictim/HDHomeRunEPG-to-XmlTv) for original Python script to convert HDHomeRun EPG data to XMLTV file.
 
