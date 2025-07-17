@@ -23,7 +23,7 @@ services:
       - TZ=America/Denver
     volumes:
       - ./config:/config
-      - {$HOME}/docker/jellyfin/epg:/epg
+      - {$HOME}/docker/jellyfin/epg:/app
 
 ```
 
