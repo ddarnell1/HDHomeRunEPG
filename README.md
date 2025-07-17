@@ -18,7 +18,7 @@ services:
     container_name: hdhomerunepg
     restart: unless-stopped
     environment:
-      - OPT_ARGS=-I -D -C /config/hdhomerunepg.conf
+      - OPT_ARGS=--days 14
       - SLEEPTIME=43200 # 12 hours in seconds
       - TZ=America/Denver
     volumes:
