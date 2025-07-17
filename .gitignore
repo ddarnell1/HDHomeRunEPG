@@ -1,0 +1,11 @@
+
+*.*
+
+!.gitignore
+!Dockerfile
+!entrypoint.sh
+!HDHomeRunEPG_To_XmlTv-notes.txt
+!HDHomeRunEPG_To_XmlTv.py
+!README.md
+
+build/

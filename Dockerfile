@@ -1,7 +1,6 @@
 FROM alpine:latest
 
 ENV SLEEPTIME=43200
-ENV HOST=192.168.68.192
 
 RUN apk add --no-cache \
   python3 \
@@ -12,7 +11,7 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-COPY zap2xml.pl zap2xml.pl
+COPY HDHomeRunEPG_To_XmlTv.py HDHomeRunEPG_To_XmlTv.py
 COPY entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
