@@ -14,7 +14,7 @@ See [HDHomeRunEPG-to-XmlTv](https://github.com/IncubusVictim/HDHomeRunEPG-to-Xml
 ```yaml
 services:
   hdhomerunepg:
-    image: ghcr.io/ddarnell1/hdhomerunepg:master
+    image: ghcr.io/ddarnell1/hdhomerunepg:latest
     container_name: hdhomerunepg
     restart: unless-stopped
     network_mode: host
