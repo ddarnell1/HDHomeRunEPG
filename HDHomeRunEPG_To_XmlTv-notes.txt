@@ -1,3 +1,0 @@
-https://github.com/IncubusVictim/HDHomeRunEPG-to-XmlTv
-
-python HDHomeRunEPG_To_XmlTv.py --days 14
