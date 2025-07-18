@@ -3,9 +3,8 @@ FROM alpine:latest
 RUN apk add --no-cache \
   python3 \
   py3-pip \
-  && pip3 install argparse \
-  && pip3 install requests \
-  && ln -sf python3 /usr/bin/python
+  py3-configargparse \
+  py3-requests
 
 ENV SLEEPTIME=43200
 

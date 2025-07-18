@@ -14,17 +14,17 @@ See [HDHomeRunEPG-to-XmlTv](https://github.com/IncubusVictim/HDHomeRunEPG-to-Xml
 ```yaml
 services:
   hdhomerunepg:
-    image: ghcr.io/ddarnell1/HDHomeRunEPG:latest
+    image: hdhomerunepg
     container_name: hdhomerunepg
     restart: unless-stopped
+    network_mode: host
+    security_opt:
+      - no-new-privileges:true
     environment:
-      - OPT_ARGS=--days 14
+      - OPT_ARGS=--days 14 --host 192.168.0.99 --filename /epg/epg.xml
       - SLEEPTIME=43200 # 12 hours in seconds
-      - TZ=America/Denver
     volumes:
-      - ./config:/config
-      - {$HOME}/docker/jellyfin/epg:/app
-
+      - ${HOME}/docker/jellyfin/epg:/epg
 ```
 
 ## Usage
