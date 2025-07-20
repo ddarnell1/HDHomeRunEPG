@@ -6,8 +6,7 @@ See [HDHomeRunEPG-to-XmlTv](https://github.com/IncubusVictim/HDHomeRunEPG-to-Xml
 
 | Tag | Description |
 |---|---|
-| latest | Stable HDHomeRunEPG releases |
-| nightly | HEAD HDHomeRunEPG release |
+| master | Stable HDHomeRunEPG Package |
 
 ### Compose
 
