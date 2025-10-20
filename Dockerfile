@@ -6,7 +6,10 @@ RUN apk add --no-cache \
   py3-configargparse \
   py3-requests \
   py3-tz \
-  py3-tzlocal
+  py3-tzlocal \
+  tzdata
+
+RUN ln -s /usr/share/zoneinfo/America/Denver /etc/localtime
 
 ENV SLEEPTIME=43200
 
