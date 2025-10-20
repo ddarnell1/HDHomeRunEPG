@@ -4,12 +4,12 @@ RUN apk add --no-cache \
   python3 \
   py3-pip \
   py3-configargparse \
-  py3-requests \
-  py3-tz \
-  py3-tzlocal \
-  alpine-conf \
-  tzdata
+  py3-requests
 
+#  py3-tz \
+#  py3-tzlocal \
+#  alpine-conf \
+#  tzdata
 # RUN setup-timezone -z America/Denver
 
 ENV SLEEPTIME=43200
