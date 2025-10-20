@@ -10,7 +10,7 @@ RUN apk add --no-cache \
   alpine-conf \
   tzdata
 
-RUN setup-timezone -z America/Denver
+# RUN setup-timezone -z America/Denver
 
 ENV SLEEPTIME=43200
 
