@@ -4,8 +4,9 @@ RUN apk add --no-cache \
   python3 \
   py3-pip \
   py3-configargparse \
-  py3-requests \
-  py3-pytz
+  py3-requests
+
+RUN pip3 install pytz
 
 ENV SLEEPTIME=43200
 
