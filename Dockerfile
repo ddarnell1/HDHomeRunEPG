@@ -7,6 +7,7 @@ RUN apk add --no-cache \
   py3-requests \
   py3-tz \
   py3-tzlocal \
+  alpine-conf \
   tzdata
 
 RUN setup-timezone -z America/Denver
