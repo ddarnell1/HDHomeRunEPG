@@ -9,7 +9,7 @@ RUN apk add --no-cache \
   py3-tzlocal \
   tzdata
 
-RUN ln -s /usr/share/zoneinfo/America/Denver /etc/localtime
+RUN setup-timezone -z America/Denver
 
 ENV SLEEPTIME=43200
 
