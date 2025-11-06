@@ -8,6 +8,11 @@ the channels it has tuned in, so it made sense to use this.
 
 The HDHomeRun Quattro has a limitation of just over 7 days EPG, so trying to go beyond that
 is pointless.
+
+Fixes:
+
+#5 - Many thanks to @supitsmike for fixing the bug where all episodes were showing as "New".
+#7 - Add the <new /> to help with NEXTPVR intepretting a new show correctly.
 """
 
 import argparse
@@ -144,9 +149,9 @@ guideData = {"AppName":"HDHomeRun","AppVersion":"20241007","DeviceAuth":deviceAu
 guideHeader = {"Cache-Control":"no-cache","Content-Type":"multipart/form-data","Accept-Encoding":"gzip, deflate, br","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; WebView/3.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.22631"}
 
 # Begin the EPG extraction from the HDHomeRun device
-guideResp = session.post("https://api.hdhomerun.com/api/guide?DeviceAuth=" + deviceAuth + "&SynopsisLength=160", headers=guideHeader, data=guideData)
-if deviceResp.status_code != 200:
-    log_info("HDHomeRun guide request failed: (" + deviceResp.status_code + ") " + deviceResp.reason)
+guideResp = session.get("https://api.hdhomerun.com/api/guide?DeviceAuth=" + deviceAuth + "&SynopsisLength=160", headers=guideHeader, data=guideData)
+if guideResp.status_code != 200:
+    log_info("HDHomeRun guide request failed: (" + guideResp.status_code + ") " + guideResp.reason)
     sys.exit()
 
 baseGuideJson = guideResp.json()
@@ -158,9 +163,9 @@ while nextTimestamp <= maxTimestamp:
     
     log_info("--> Processing from (" + str(nextTimestamp) + ") " + str(datetime.datetime.fromtimestamp(nextTimestamp)))
 
-    guideResp = session.post("https://api.hdhomerun.com/api/guide?DeviceAuth=" + deviceAuth + "&SynopsisLength=160&Start=" + str(nextTimestamp), headers=guideHeader, data=guideData)
-    if deviceResp.status_code != 200:
-        log_info("HDHomeRun guide request failed: (" + deviceResp.status_code + ") " + deviceResp.reason)
+    guideResp = session.get("https://api.hdhomerun.com/api/guide?DeviceAuth=" + deviceAuth + "&SynopsisLength=160&Start=" + str(nextTimestamp), headers=guideHeader, data=guideData)
+    if guideResp.status_code != 200:
+        log_info("HDHomeRun guide request failed: (" + guideResp.status_code + ") " + guideResp.reason)
         sys.exit()
 
     reqGuideJson = guideResp.json()
@@ -253,6 +258,11 @@ for reqChannel in baseGuideJson:
             description.set('lang', 'en')
             description.text = clean_text(reqGuide["Synopsis"])
 
+        if "EpisodeTitle" in reqGuide:
+            episodeTitle = ET.SubElement(programme, "sub-title")
+            episodeTitle.set("lang", "en")
+            episodeTitle.text = reqGuide["EpisodeTitle"]
+
         # Programme icon
         if "ImageURL" in reqGuide:
             icon = ET.SubElement(programme, "icon")
@@ -276,16 +286,13 @@ for reqChannel in baseGuideJson:
             if "OriginalAirdate" in reqGuide:
                 originalAirDate = reqGuide["OriginalAirdate"]
                 airDate = datetime.datetime.fromtimestamp(originalAirDate).astimezone(datetime.timezone.utc)
-                if is_new_episode(airDate) == False:
+                if is_new_episode(airDate):
+                    ET.SubElement(programme, "new")
+                else:
                     episodePS = ET.SubElement(programme, "previously-shown")
                     episodePS.set("start", airDate.strftime("%Y%m%d%H%M%S"))
             else:
                 ET.SubElement(programme, "previously-shown") # No original air date provided, assuming it aired before 1970
-
-            if "EpisodeTitle" in reqGuide:
-                episodeTitle = ET.SubElement(programme, "sub-title")
-                episodeTitle.set("lang", "en")
-                episodeTitle.text = reqGuide["EpisodeTitle"]
 
         if "Filter" in reqGuide:
             for filter in reqGuide["Filter"]:
